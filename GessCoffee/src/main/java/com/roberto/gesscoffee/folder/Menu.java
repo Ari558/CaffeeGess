@@ -1,6 +1,7 @@
 
 package com.roberto.gesscoffee.folder;
 
+import Form.FrmClientes;
 import Form.Menus;
 import Model.Model_Menu;
 import java.awt.Color;
@@ -122,6 +123,9 @@ public class Menu extends javax.swing.JPanel {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
+        
+        FrmClientes clientes =  new FrmClientes();
+        clientes.setVisible(true);
         
     }//GEN-LAST:event_jPanel1MouseClicked
 
