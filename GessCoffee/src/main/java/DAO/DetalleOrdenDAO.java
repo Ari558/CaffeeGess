@@ -57,11 +57,11 @@ public class DetalleOrdenDAO {
             cb.setInt("porden", dt.getOrdenfk());
             cb.setInt("pcantidad", dt.getCantidad());
             cb.setFloat("pPrecio", dt.getPrecioTotal());
-            cb.setString("pformaPago", dt.getForma().toString());
-            cb.setString("ptipoFactura", dt.getPago().toString());
+            cb.setInt("pformaPago", dt.getForma().ordinal()+1);
+            cb.setInt("ptipoFactura", dt.getPago().ordinal()+1);
             cb.execute();
             
-            JOptionPane.showMessageDialog(null, "Persona agregada","Mensje sistems",1);
+            JOptionPane.showMessageDialog(null, "Cliente agregado","Mensje sistems",1);
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, "Error","Mensje sistems",1);
             
@@ -79,7 +79,7 @@ public class DetalleOrdenDAO {
             cb.setString("ptipoFactura", dt.getPago().toString());
             cb.execute();
             
-            JOptionPane.showMessageDialog(null, "Persona acctualizada","Mensje sistems",1);
+            JOptionPane.showMessageDialog(null, "Cliente actualizado","Mensje sistems",1);
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, "Error","Mensje sistemas",1);
             
@@ -95,7 +95,7 @@ public class DetalleOrdenDAO {
 //            cb.setString("pNumero", cl.getNumeroClientes());
             cb.execute();
             
-            JOptionPane.showMessageDialog(null, "Persona eliminada","Mensje sistems",1);
+            JOptionPane.showMessageDialog(null, "Cliente eliminado","Mensje sistems",1);
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, "Error"+ex,"Mensje sistemas",1);
             

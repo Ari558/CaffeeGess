@@ -79,6 +79,9 @@ public class Orden {
         this.comidafk = comidafk;
         this.idOrden = idOrden;
     }
+
+    public Orden() {
+    }
     
     
 }
