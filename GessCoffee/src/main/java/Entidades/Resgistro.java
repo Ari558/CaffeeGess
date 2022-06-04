@@ -9,6 +9,7 @@ package Entidades;
  * @author recin
  */
 public class Resgistro {
+
     private String nombre;
     private String pass;
     private int telefono;
@@ -54,6 +55,21 @@ public class Resgistro {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
+    public Resgistro() {
+    }
+
+    public Resgistro(String nombre, String pass, int telefono, int id) {
+        this.nombre = nombre;
+        this.pass = pass;
+        this.telefono = telefono;
+        this.id = id;
+    }
+
+    public Resgistro(String nombre, String pass, int telefono) {
+        this.nombre = nombre;
+        this.pass = pass;
+        this.telefono = telefono;
+    }
+
 }

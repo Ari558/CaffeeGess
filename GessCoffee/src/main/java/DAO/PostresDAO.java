@@ -46,12 +46,12 @@ ConexionDB con = new ConexionDB();
     }
      
     
-      public void AddComida(Postres cc){
+      public void AddPostres(Postres p){
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_I_POSTRES(?,?)}");
-            cb.setString("PNombre", cc.getNombrePostres());
-            cb.setFloat("PPrecio", cc.getPrecioPostre());
+            cb.setString("PNombre", p.getNombrePostres());
+            cb.setFloat("PPrecio", p.getPrecioPostre());
             cb.execute();
             
             JOptionPane.showMessageDialog(null, "Postre agregado con exito","Mensje sistems",1);
@@ -60,13 +60,13 @@ ConexionDB con = new ConexionDB();
             
         }
       }
-      public void UpdateClientes(Postres cc){
+      public void UpdatePostres(Postres p){
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_POSTRES(?,?,?)}");
-            cb.setInt(1, cc.getIdPostres());
-            cb.setString("pNombre", cc.getNombrePostres());
-            cb.setFloat("pApellido", cc.getPrecioPostre());
+            cb.setInt(1, p.getIdPostres());
+            cb.setString("pNombre", p.getNombrePostres());
+            cb.setFloat("pApellido", p.getPrecioPostre());
             cb.execute();
             
             JOptionPane.showMessageDialog(null, "Postre actualizado","Mensje sistems",1);
@@ -75,11 +75,11 @@ ConexionDB con = new ConexionDB();
             
         }
       }
-         public void DeleteClientes(Postres cc){
+         public void DeletePostres(Postres p){
     
         try {
             CallableStatement cb = conexion.prepareCall("delete from tbl_comida as c where c.idtbl_postres = ?");
-            cb.setInt(1, cc.getIdPostres());
+            cb.setInt(1, p.getIdPostres());
 //            cb.setString("pNombre", cl.getNombreClientes());
 //            cb.setString("pApellido", cl.getApellidoClientes());
 //            cb.setString("pNumero", cl.getNumeroClientes());

@@ -33,7 +33,7 @@ public class SqlUsuario extends ConexionDB {
             pd.setString(4, rg.getCorreo());
             
             pd.execute();
-            JOptionPane.showMessageDialog(null, "Contacto agregado","Mensaje sistema",1);
+            JOptionPane.showMessageDialog(null, "Usuario agregado","Mensaje sistema",1);
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error"+e.toString(),"Mensaje sistema",1);

@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 public class ComidaDAO {
     ConexionDB con = new ConexionDB();
      Connection conexion = con.getConnection();
+     
+     
       public ArrayList<Comida> ListadoComida() {
         ArrayList<Comida> listado = null;
 
@@ -33,7 +35,7 @@ public class ComidaDAO {
             while (resultado.next()) {
                 //Llamar a el objeto de entidades.
                 Comida c = new Comida();    
-                c.setNombreComida(resultado.getString("Nombre_Bebida"));
+                c.setNombreComida(resultado.getString("Nombre_Comida"));
                 c.setPrecioComida(resultado.getFloat("Precio"));
                 listado.add(c);
             }
