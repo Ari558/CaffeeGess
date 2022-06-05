@@ -30,7 +30,7 @@ public class ConexionDB {
             String password = "root12.guion";
             
             ConnectionDb = DriverManager.getConnection(url, user, password);
-            System.out.println("conexion exitosa");
+            
         } catch (Exception e) {
             System.out.println("Error no funciona"+e.toString());
         }

@@ -51,6 +51,11 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public Usuario(String NombreUsuario, String Pasword) {
+        this.NombreUsuario = NombreUsuario;
+        this.Pasword = Pasword;
+    }
+
     
     
     

@@ -34,7 +34,8 @@ public class ComidaDAO {
 
             while (resultado.next()) {
                 //Llamar a el objeto de entidades.
-                Comida c = new Comida();    
+                Comida c = new Comida();
+                c.setIdComida(resultado.getInt("idtbl_comida"));
                 c.setNombreComida(resultado.getString("Nombre_Comida"));
                 c.setPrecioComida(resultado.getFloat("Precio"));
                 listado.add(c);
@@ -62,13 +63,13 @@ public class ComidaDAO {
             
         }
       }
-      public void UpdateClientes(Comida cc){
+      public void UpdateComida(Comida cc){
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_COMIDA(?,?,?)}");
-            cb.setInt(1, cc.getIdComida());
-            cb.setString("pNombre", cc.getNombreComida());
-            cb.setFloat("pApellido", cc.getPrecioComida());
+            cb.setInt(3, cc.getIdComida());
+            cb.setString("PNombre", cc.getNombreComida());
+            cb.setFloat("PPrecio", cc.getPrecioComida());
             cb.execute();
             
             JOptionPane.showMessageDialog(null, "Comida actualizada","Mensje sistems",1);
@@ -77,7 +78,7 @@ public class ComidaDAO {
             
         }
       }
-         public void DeleteClientes(Comida cc){
+         public void DeleteComida(Comida cc){
     
         try {
             CallableStatement cb = conexion.prepareCall("delete from tbl_comida as c where c.idtbl_comida = ?");

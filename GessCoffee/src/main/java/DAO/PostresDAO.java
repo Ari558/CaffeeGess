@@ -32,7 +32,8 @@ ConexionDB con = new ConexionDB();
 
             while (resultado.next()) {
                 //Llamar a el objeto de entidades.
-                Postres c = new Postres();    
+                Postres c = new Postres(); 
+                c.setIdPostres(resultado.getInt("idtbl_postres"));
                 c.setNombrePostres(resultado.getString("Nombre_Postre"));
                 c.setPrecioPostre(resultado.getFloat("Precio"));
                 listado.add(c);
@@ -64,9 +65,9 @@ ConexionDB con = new ConexionDB();
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_POSTRES(?,?,?)}");
-            cb.setInt(1, p.getIdPostres());
-            cb.setString("pNombre", p.getNombrePostres());
-            cb.setFloat("pApellido", p.getPrecioPostre());
+            cb.setInt(3, p.getIdPostres());
+            cb.setString("PNombre", p.getNombrePostres());
+            cb.setFloat("PPrecio", p.getPrecioPostre());
             cb.execute();
             
             JOptionPane.showMessageDialog(null, "Postre actualizado","Mensje sistems",1);
@@ -78,14 +79,14 @@ ConexionDB con = new ConexionDB();
          public void DeletePostres(Postres p){
     
         try {
-            CallableStatement cb = conexion.prepareCall("delete from tbl_comida as c where c.idtbl_postres = ?");
+            CallableStatement cb = conexion.prepareCall("delete from tbl_postres as c where c.idtbl_postres = ?");
             cb.setInt(1, p.getIdPostres());
 //            cb.setString("pNombre", cl.getNombreClientes());
 //            cb.setString("pApellido", cl.getApellidoClientes());
 //            cb.setString("pNumero", cl.getNumeroClientes());
             cb.execute();
             
-            JOptionPane.showMessageDialog(null, "Comida eliminada","Mensje sistems",1);
+            JOptionPane.showMessageDialog(null, "Postre eliminado","Mensje sistems",1);
         } catch (SQLException ex){
             JOptionPane.showMessageDialog(null, "Error"+ex,"Mensje sistemas",1);
             
