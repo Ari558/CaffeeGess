@@ -71,7 +71,7 @@ public class ClientesDAO {
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_CLIENTES(?,?,?,?)}");
-            cb.setInt(4, cl.getIdClientes());
+            cb.setInt("pid", cl.getIdClientes());
             cb.setString("pNombre", cl.getNombreClientes());
             cb.setString("pApellido", cl.getApellidoClientes());
             cb.setString("pNumero", cl.getNumeroClientes());

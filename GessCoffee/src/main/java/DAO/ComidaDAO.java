@@ -67,7 +67,7 @@ public class ComidaDAO {
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_COMIDA(?,?,?)}");
-            cb.setInt(3, cc.getIdComida());
+            cb.setInt("pid", cc.getIdComida());
             cb.setString("PNombre", cc.getNombreComida());
             cb.setFloat("PPrecio", cc.getPrecioComida());
             cb.execute();

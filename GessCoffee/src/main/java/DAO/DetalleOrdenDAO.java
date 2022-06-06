@@ -50,7 +50,7 @@ public class DetalleOrdenDAO {
         return listado;
 
     }
-    public void AddClientes(DetalleOrden dt){
+    public void AddDetalle(DetalleOrden dt){
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_I_DETALLE(?,?,?,?,?)}");
@@ -67,11 +67,11 @@ public class DetalleOrdenDAO {
             
         }
       }
-      public void UpdateClientes(DetalleOrden dt){
+      public void UpdateDetalle(DetalleOrden dt){
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_DETALLE(?,?,?,?)}");
-            cb.setInt(1, dt.getIdDetalleOden());
+            cb.setInt("pid", dt.getIdDetalleOden());
             cb.setInt("porden", dt.getOrdenfk());
             cb.setInt("pcantidad", dt.getCantidad());
             cb.setFloat("pPrecio", dt.getPrecioTotal());
@@ -85,7 +85,7 @@ public class DetalleOrdenDAO {
             
         }
       }
-         public void DeleteClientes(DetalleOrden dt){
+         public void DeleteDetalle(DetalleOrden dt){
     
         try {
             CallableStatement cb = conexion.prepareCall("delete from tbl_detalleorden as c where c.idtbl_DetalleOrden = ?");

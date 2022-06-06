@@ -65,7 +65,7 @@ ConexionDB con = new ConexionDB();
     
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_POSTRES(?,?,?)}");
-            cb.setInt(3, p.getIdPostres());
+            cb.setInt("pid", p.getIdPostres());
             cb.setString("PNombre", p.getNombrePostres());
             cb.setFloat("PPrecio", p.getPrecioPostre());
             cb.execute();

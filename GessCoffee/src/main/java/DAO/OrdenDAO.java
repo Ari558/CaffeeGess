@@ -70,7 +70,7 @@ public class OrdenDAO {
 
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_ORDEN(?,?,?,?,?,?)}");
-            cb.setInt(1, ord.getIdOrden());
+            cb.setInt("pid", ord.getIdOrden());
             cb.setInt("pnumorden", ord.getNumeroOrden());
             cb.setInt("pcliente", ord.getClientefk());
             cb.setInt("pbebida", ord.getBebidafk());

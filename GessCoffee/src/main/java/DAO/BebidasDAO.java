@@ -34,7 +34,8 @@ public class BebidasDAO {
 
             while (resultado.next()) {
                 //Llamar a el objeto de entidades.
-                Bebidas b = new Bebidas();    
+                Bebidas b = new Bebidas();
+                b.setIdBebida(resultado.getInt("idtbl_bebida"));
                 b.setNombreBebida(resultado.getString("Nombre_Bebida"));
                 b.setPrecioBebida(resultado.getFloat("Precio"));
                 listado.add(b);
@@ -62,11 +63,11 @@ public class BebidasDAO {
         }
     }
 
-    public void UpdateClientes(Bebidas bebi) {
+    public void UpdateBebida(Bebidas bebi) {
 
         try {
             CallableStatement cb = conexion.prepareCall("{call SP_U_BEBIDA(?,?,?)}");
-            cb.setInt(1, bebi.getIdBebida());
+            cb.setInt("pid", bebi.getIdBebida());
             cb.setString("PNOmbre", bebi.getNombreBebida());
             cb.setFloat("PPrecio", bebi.getPrecioBebida());
             cb.execute();
