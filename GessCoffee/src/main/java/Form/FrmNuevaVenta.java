@@ -4,6 +4,20 @@
  */
 package Form;
 
+import Conexion.ConexionDB;
+import DAO.BebidasDAO;
+import DAO.ComidaDAO;
+import Entidades.Bebidas;
+import Entidades.Comida;
+import Entidades.Postres;
+import java.lang.reflect.Array;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author recin
@@ -15,6 +29,119 @@ public class FrmNuevaVenta extends javax.swing.JFrame {
      */
     public FrmNuevaVenta() {
         initComponents();
+        cargarComboComida();
+        cargarComboBebida();
+        cargarComboPorstres();
+        cargarPrecioComboComida();
+        
+    }
+    ConexionDB con = new ConexionDB();
+    Connection conexion = con.getConnection();
+    Comida cdao =  new Comida();
+    double precios[] = {};
+    double precio = 0;
+    int cantidad = 0;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    public ArrayList<Comida> ListadoComida() {
+        ArrayList<Comida> listado = null;
+
+        try {
+            listado = new ArrayList<Comida>();
+
+            CallableStatement cb = conexion.prepareCall("{call SP_S_COMIDA()}");
+            ResultSet resultado = cb.executeQuery();
+
+            while (resultado.next()) {
+                //Llamar a el objeto de entidades.
+                Comida c = new Comida();
+
+                //c.setIdComida(resultado.getInt("idtbl_comida"));
+                c.setNombreComida(resultado.getString("Nombre_Comida"));
+                c.setPrecioComida(resultado.getFloat("Precio"));
+                listado.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return listado;
+
+    }
+
+    public void cargarComboComida() {
+        for (Comida i : ListadoComida()) {
+            CBOComida.addItem(i.getNombreComida());
+ 
+        }
+    }
+    public void cargarPrecioComboComida(){
+        for (Comida i : ListadoComida()) {
+            CBOPrecioComida.addItem(Float.toString(i.getPrecioComida()));
+        }
+    }
+
+    public ArrayList<Bebidas> ListadoBebidas() {
+        ArrayList<Bebidas> listado = null;
+
+        try {
+            listado = new ArrayList<Bebidas>();
+
+            CallableStatement cb = conexion.prepareCall("{call SP_S_BEBIDA()}");
+            ResultSet resultado = cb.executeQuery();
+
+            while (resultado.next()) {
+                //Llamar a el objeto de entidades.
+                Bebidas b = new Bebidas();
+                //b.setIdBebida(resultado.getInt("idtbl_bebida"));
+                b.setNombreBebida(resultado.getString("Nombre_Bebida"));
+                b.setPrecioBebida(resultado.getFloat("Precio"));
+                listado.add(b);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return listado;
+
+    }
+
+    public void cargarComboBebida() {
+        for (Bebidas i : ListadoBebidas()) {
+            CBOBebida.addItem(i.getNombreBebida());
+        }
+    }
+
+    public ArrayList<Postres> ListadoPostres() {
+        ArrayList<Postres> listado = null;
+
+        try {
+            listado = new ArrayList<Postres>();
+
+            CallableStatement cb = conexion.prepareCall("{call SP_S_POSTRES()}");
+            ResultSet resultado = cb.executeQuery();
+
+            while (resultado.next()) {
+                //Llamar a el objeto de entidades.
+                Postres c = new Postres();
+                //c.setIdPostres(resultado.getInt("idtbl_postres"));
+                c.setNombrePostres(resultado.getString("Nombre_Postre"));
+                //c.setPrecioPostre(resultado.getFloat("Precio"));
+                listado.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        return listado;
+
+    }
+
+    public void cargarComboPorstres() {
+        for (Postres i : ListadoPostres()) {
+            CBOPostres.addItem(i.getNombrePostres());
+        }
     }
 
     /**
@@ -27,26 +154,328 @@ public class FrmNuevaVenta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        CBOComida = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        CBOBebida = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        CBOPostres = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        SpnCantidadComida = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        SpnCantidadBebidas = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        SpnCantidadPostre = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProductos = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblSubTotal = new javax.swing.JLabel();
+        lblIva = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        lblPrecioComida = new javax.swing.JLabel();
+        lblImporteComida = new javax.swing.JLabel();
+        lblPrecioBebidas = new javax.swing.JLabel();
+        lblImporteBebida = new javax.swing.JLabel();
+        lblPrecioPostre = new javax.swing.JLabel();
+        lblImportePostre = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        CBOPrecioComida = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(205, 205, 205));
+
+        jLabel1.setText("Comida");
+
+        CBOComida.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                CBOComidaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+        CBOComida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBOComidaActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Bebidas");
+
+        CBOBebida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        CBOBebida.setSelectedIndex(-1);
+
+        jLabel3.setText("Postres");
+
+        jLabel4.setText("Cantidad");
+
+        SpnCantidadComida.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        SpnCantidadComida.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SpnCantidadComidaStateChanged(evt);
+            }
+        });
+
+        jLabel5.setText("Cantidad");
+
+        SpnCantidadBebidas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+
+        jLabel6.setText("Cantidad");
+
+        SpnCantidadPostre.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblProductos);
+
+        jLabel7.setText("SubTotal");
+
+        jLabel8.setText("Iva");
+
+        jLabel9.setText("Total");
+
+        lblTotal.setText("$0.00 USD");
+
+        lblSubTotal.setText("$0.00 USD");
+
+        lblIva.setText("$0.00 USD");
+
+        jLabel13.setText("Precio");
+
+        jLabel14.setText("Importe");
+
+        jLabel15.setText("Precio");
+
+        jLabel16.setText("Importe");
+
+        jLabel17.setText("Precio");
+
+        jLabel18.setText("Importe");
+
+        lblPrecioComida.setText("$0.00 USD");
+
+        lblImporteComida.setText("$0.00 USD");
+
+        lblPrecioBebidas.setText("$0.00 USD");
+
+        lblImporteBebida.setText("$0.00 USD");
+
+        lblPrecioPostre.setText("$0.00 USD");
+
+        lblImportePostre.setText("$0.00 USD");
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8_deliver_food_32px_1.png"))); // NOI18N
+        jLabel10.setText("Agregar");
+        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTotal))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblIva))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(45, 45, 45)
+                                .addComponent(lblSubTotal))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(SpnCantidadComida))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(CBOComida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14))
+                                .addGap(81, 81, 81)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblImporteComida)
+                                    .addComponent(lblPrecioComida)))
+                            .addComponent(CBOPrecioComida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(CBOBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(SpnCantidadBebidas)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16))
+                                .addGap(81, 81, 81)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblImporteBebida)
+                                    .addComponent(lblPrecioBebidas))))
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CBOPostres, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(SpnCantidadPostre))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel18))
+                                .addGap(81, 81, 81)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblImportePostre)
+                                    .addComponent(lblPrecioPostre))))))
+                .addContainerGap(122, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(CBOComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(CBOBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(CBOPostres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(SpnCantidadComida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(SpnCantidadBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(SpnCantidadPostre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(CBOPrecioComida, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(lblImporteComida)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(lblPrecioPostre))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(lblImportePostre)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(lblPrecioComida)
+                            .addComponent(lblPrecioBebidas))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(lblImporteBebida))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(lblSubTotal))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(lblIva))
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(lblTotal))))
+                .addGap(28, 28, 28))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 570));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CBOComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBOComidaActionPerformed
+        // TODO add your handling code here:
+//        calcularPrecio();
+    }//GEN-LAST:event_CBOComidaActionPerformed
+
+    private void SpnCantidadComidaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SpnCantidadComidaStateChanged
+        // TODO add your handling code here:
+//        calcularPrecio();
+    }//GEN-LAST:event_SpnCantidadComidaStateChanged
+
+    private void CBOComidaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_CBOComidaPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBOComidaPopupMenuWillBecomeInvisible
+
+    public void calcularPrecio() {
+//            precio = precios[CBOPrecioComida.getSelectedIndex()];
+            cantidad = Integer.parseInt(SpnCantidadComida.getValue().toString());
+            //lblPrecioComida.setText(Float.toString(i.getPrecioComida()));
+            lblPrecioComida.setText(Integer.toString(CBOPrecioComida.getSelectedIndex()));
+            lblImporteComida.setText(Amoneda(precio*cantidad));
+    }
+
+        public String Amoneda (double precio){
+    return "$ "+Math.round(precio*100.00)/100.00+" USD";
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -83,6 +512,40 @@ public class FrmNuevaVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CBOBebida;
+    private javax.swing.JComboBox<String> CBOComida;
+    private javax.swing.JComboBox<String> CBOPostres;
+    private javax.swing.JComboBox<String> CBOPrecioComida;
+    private javax.swing.JSpinner SpnCantidadBebidas;
+    private javax.swing.JSpinner SpnCantidadComida;
+    private javax.swing.JSpinner SpnCantidadPostre;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblImporteBebida;
+    private javax.swing.JLabel lblImporteComida;
+    private javax.swing.JLabel lblImportePostre;
+    private javax.swing.JLabel lblIva;
+    private javax.swing.JLabel lblPrecioBebidas;
+    private javax.swing.JLabel lblPrecioComida;
+    private javax.swing.JLabel lblPrecioPostre;
+    private javax.swing.JLabel lblSubTotal;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JTable tblProductos;
     // End of variables declaration//GEN-END:variables
 }

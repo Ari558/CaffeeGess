@@ -195,6 +195,9 @@ public class FrmResgistroCajeros extends javax.swing.JFrame {
         usuarioe.setRol(RolType.values()[Cbrol.getSelectedIndex()]);
         log.addUsuario(usuarioe);
         
+        FrmLogin frm = new FrmLogin();
+        frm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     /**

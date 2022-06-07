@@ -32,8 +32,8 @@ public class FrmDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelBoard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 834, 542));
-        getContentPane().add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 542));
+        getContentPane().add(panelBoard1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 840, 550));
+        getContentPane().add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

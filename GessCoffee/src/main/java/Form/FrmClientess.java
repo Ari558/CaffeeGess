@@ -61,7 +61,6 @@ public class FrmClientess extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(205, 205, 205));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

@@ -5,6 +5,8 @@
 package Form;
 
 import DAO.ComidaDAO;
+import DAO.DetalleOrdenDAO;
+import Entidades.DetalleOrden;
 import Entidades.Comida;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -372,6 +374,30 @@ public class FrmComida extends javax.swing.JFrame {
             df.addRow(fila);
         }
         tblComida.setModel(df);
+//         String titulos[] = {"Id", "Orden", "Cantidad","Precio Total","Forma Pago","Tipo Factura"};
+//        //Ejemplosdearreglos
+//        Double numero[] = new Double[7];
+//        DefaultTableModel df = new DefaultTableModel(null, titulos);
+//
+//        DetalleOrdenDAO es = new DetalleOrdenDAO();
+//        ArrayList<DetalleOrden> listar = es.ListadoDetalleOrden();
+//
+//        
+//        Iterator iterador = listar.iterator();
+//        Object fila[] = new Object[8];
+//
+//        while (iterador.hasNext()) {
+//            //CASTEAR
+//            DetalleOrden estBucle = (DetalleOrden) iterador.next();
+//            fila[0] = estBucle.getIdDetalleOden();
+//            fila[1] = estBucle.getOrdenfk();
+//            fila[2] = estBucle.getCantidad();
+//            fila[3] = estBucle.getPrecioTotal();
+//            fila[4] = estBucle.getPago();
+//            fila[5] = estBucle.getForma();
+//            df.addRow(fila);
+//        }
+//        tblComida.setModel(df);
     }
          void value(){
         int fila = tblComida.getSelectedRow();

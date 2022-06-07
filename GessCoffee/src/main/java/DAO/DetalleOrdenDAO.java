@@ -35,10 +35,11 @@ public class DetalleOrdenDAO {
 
             while (resultado.next()) {
                 //Llamar a el objeto de entidades.
-                DetalleOrden detalle = new DetalleOrden();    
+                DetalleOrden detalle = new DetalleOrden();
+                detalle.setId(resultado.getInt("idtbl_DetalleOrden"));
                 detalle.setOrdenfk(resultado.getInt("orden_fk"));
-                detalle.setCantidad(resultado.getInt("Camtidad"));
-                detalle.setPrecioTotal(resultado.getFloat("Precio_Total"));
+                detalle.setCantidad(resultado.getInt("Cantidad"));
+                detalle.setPrecioTotal(resultado.getFloat("PrecioTotal"));
                 detalle.setForma(forma_pago.Efectivo.tarjetaCredito);
                 detalle.setPago(tipoPago.CreditoFiscal.FacturaComercial);
                 listado.add(detalle);

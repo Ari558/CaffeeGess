@@ -18,6 +18,15 @@ public class DetalleOrden {
     int ordenfk;
     int Cantidad;
     float precioTotal;
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 
     public forma_pago getForma() {
@@ -68,7 +77,14 @@ public class DetalleOrden {
         this.precioTotal = precioTotal;
     }
 
-    public DetalleOrden() {
+    public DetalleOrden(forma_pago forma, tipoPago pago, int idDetalleOden, int ordenfk, int Cantidad, float precioTotal, int id) {
+        this.forma = forma;
+        this.pago = pago;
+        this.idDetalleOden = idDetalleOden;
+        this.ordenfk = ordenfk;
+        this.Cantidad = Cantidad;
+        this.precioTotal = precioTotal;
+        this.id = id;
     }
 
     public DetalleOrden(forma_pago forma, tipoPago pago, int ordenfk, int Cantidad, float precioTotal) {
@@ -79,13 +95,9 @@ public class DetalleOrden {
         this.precioTotal = precioTotal;
     }
 
-    public DetalleOrden(forma_pago forma, tipoPago pago, int idDetalleOden, int ordenfk, int Cantidad, float precioTotal) {
-        this.forma = forma;
-        this.pago = pago;
-        this.idDetalleOden = idDetalleOden;
-        this.ordenfk = ordenfk;
-        this.Cantidad = Cantidad;
-        this.precioTotal = precioTotal;
+    public DetalleOrden() {
     }
+
+   
     
 }
