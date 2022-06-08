@@ -193,23 +193,11 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnameActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-//        char clave[]=txtpassword.getPassword();
-//        
-//        String clavedef = new String(clave);
-//        
-//        if (txtname.getText().equals("admin") && clavedef.equals("11111")) {
-//            this.dispose();
-//            
-//            JOptionPane.showMessageDialog(null, "Bienvenido\n", txtname.getName(),JOptionPane.INFORMATION_MESSAGE);
-//            
-//            FrmDashboard dash = new FrmDashboard();
-//            
-//            dash.setVisible(true);
-//        }else{
-//            JOptionPane.showMessageDialog(null, "Acceso denegado\n" ,"",JOptionPane.INFORMATION_MESSAGE);
-//        }
 
-        String contra = "";
+        if(txtname.getText().isEmpty() || txtpassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Coloque los espacios requeridos");
+        }else{
+            String contra = "";
         for(char caracter:txtpassword.getPassword()){
             contra += caracter;
             
@@ -225,7 +213,11 @@ public class FrmLogin extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Error Vista");
         }
+        }
+
         
+        
+         
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel4FocusGained
@@ -233,7 +225,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4FocusGained
 
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
-        FrmResgistroCajeros registro = new FrmResgistroCajeros();
+        FrmRegister registro = new FrmRegister();
 
         registro.setVisible(true);
         this.setVisible(false);

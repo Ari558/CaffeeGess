@@ -286,7 +286,10 @@ public class FrmRegister extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-        SqlUsuario modsql = new SqlUsuario();
+        if(txtTelefono.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtPassworConfimation.getText().isEmpty() || txtpassword.getText().isEmpty() || txtUsuario.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null, "Rellene los campos por favor");
+        }else{
+             SqlUsuario modsql = new SqlUsuario();
         Resgistro mod =  new Resgistro();
         
         String pass = new String(txtpassword.getPassword());
@@ -309,6 +312,9 @@ public class FrmRegister extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
         }
+        }
+        
+       
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
